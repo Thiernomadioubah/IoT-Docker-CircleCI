@@ -24,11 +24,14 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Define SHORT_SHA
+          command: echo "export SHORT_SHA=${CIRCLE_SHA1:0:7}_ci" >> $BASH_ENV
+      - run:
           name: Build Docker image
           command: docker build -t thierno9/iot-api:$CIRCLE_BRANCH .
       - run:
           name: Tag image with commit SHA
-          command: docker tag thierno9/iot-api:$CIRCLE_BRANCH thierno9/iot-api:$CIRCLE_SHA1
+          command: docker tag thierno9/iot-api:$CIRCLE_BRANCH thierno9/iot-api:$SHORT_SHA
       - run:
           name: Login to Docker Hub
           command: echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
