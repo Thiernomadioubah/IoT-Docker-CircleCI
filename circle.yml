@@ -1,3 +1,5 @@
+# ancienne version de circleci qui utilise circleci 1.0 n'est plus supportée
+
 machine:
   services:
     - docker
