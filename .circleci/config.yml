@@ -25,7 +25,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Define SHORT_SHA
-          command: echo "export SHORT_SHA=${CIRCLE_SHA1:0:7}_ci" >> $BASH_ENV
+          command: echo "export SHORT_SHA=${CIRCLE_SHA1:0:7}-ci" >> $BASH_ENV
       - run:
           name: Build Docker image
           command: docker build -t thierno9/iot-api:$CIRCLE_BRANCH .
@@ -39,7 +39,7 @@ jobs:
           name: Push images
           command: |
             docker push thierno9/iot-api:$CIRCLE_BRANCH
-            docker push thierno9/iot-api:$CIRCLE_SHA1
+            docker push thierno9/iot-api:$SHORT_SHA
 
 workflows:
   version: 2
